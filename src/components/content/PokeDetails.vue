@@ -185,6 +185,21 @@ export default {
   font-size: 14px;
   width: 200px;
 }
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  .modal {
+    width: 50%;
+  }
+
+  .main-info {
+    flex-direction: column;
+  }
+
+  .poke-image {
+    margin: auto;
+  }
+}
+
 @media only screen and (max-width: 768px) {
   .modal {
     width: 70%;
