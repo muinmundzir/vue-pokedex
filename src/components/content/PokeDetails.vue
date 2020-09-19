@@ -6,22 +6,40 @@
         <span @click="$emit('close')">&times;</span>
       </div>
       <div class="modal-body">
-        <img :src="pokemon.sprites.front_default" alt class="poke-image" />
-        <div class="poke-info">
-          <h4>{{ pokemon.name | uppercase-first}}</h4>
-          <p>Weight: {{ pokemon.weight | normalize-value }} kg, Height: {{ pokemon.height | normalize-value }} m</p>
-          <small>
-            Type:
-            <span
-              v-for="type in pokemon.types"
-              :key="type.index"
-              class="poke-type"
-            >{{ type.type.name }}</span>
-          </small>
-          <p class="description">
-            <u>Description:</u>
-          </p>
-          <p>{{ description[1] }}</p>
+        <div class="main-info">
+          <img :src="pokemon.sprites.front_default" alt class="poke-image" />
+          <div class="poke-info">
+            <h4>{{ pokemon.name | uppercase-first}}</h4>
+            <p>Weight: {{ pokemon.weight | normalize-value }} kg, Height: {{ pokemon.height | normalize-value }} m</p>
+            <small>
+              Type:
+              <span
+                v-for="type in pokemon.types"
+                :key="type.index"
+                class="poke-type"
+              >{{ type.type.name }}</span>
+            </small>
+            <p class="description">
+              <u>Description:</u>
+            </p>
+            <p>{{ description[1] }}</p>
+          </div>
+        </div>
+        <div class="poke-stats">
+          <h4>Stats</h4>
+          <div class="stats" v-for="stat in pokemon.stats" :key="stat.stat.name">
+            <p>{{ stat.stat.name | uppercase-first}}</p>
+            <div class="healthbar">
+              <div class="healthbar text-center">{{ stat.base_stat }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="poke-ability">
+          <h4>Ability</h4>
+          <p
+            v-for="ability in pokemon.abilities"
+            :key="ability.name"
+          >{{ ability.ability.name | uppercase-first}}</p>
         </div>
       </div>
     </div>
@@ -70,6 +88,8 @@ export default {
 .modal {
   background-color: white;
   border-radius: 10px;
+  max-height: 500px;
+  overflow-y: auto;
 }
 
 .modal-header {
@@ -97,6 +117,11 @@ export default {
 
 .modal-body {
   padding: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-info {
   display: flex;
 }
 
@@ -132,6 +157,34 @@ export default {
   white-space: pre-wrap;
 }
 
+.stats {
+  display: flex;
+}
+
+.stats p {
+  display: inline;
+  padding: 0.25rem;
+}
+
+.healthbar {
+  display: inline-block;
+  width: 200px;
+  padding: 0.25rem;
+}
+
+.poke-ability h4,
+.poke-stats h4 {
+  padding: 0.5rem;
+  background-color: #ff001f !important;
+  color: white;
+}
+
+.poke-ability p,
+.poke-stats p {
+  margin: 0.5rem 0 0.5rem 1rem;
+  font-size: 14px;
+  width: 200px;
+}
 @media only screen and (max-width: 768px) {
   .modal {
     width: 70%;
@@ -154,6 +207,10 @@ export default {
     flex-direction: column;
   }
 
+  .main-info {
+    flex-direction: column;
+  }
+
   .poke-image {
     margin: auto;
   }
@@ -168,6 +225,24 @@ export default {
   small {
     font-size: 12px;
     margin-bottom: 10px;
+  }
+
+  .stats {
+    display: flex;
+  }
+
+  .stats p {
+    display: inline-block;
+    padding: 0.25rem;
+    width: 150px;
+    font-size: 12px;
+  }
+
+  .healthbar {
+    display: inline-block;
+    width: 100px;
+    padding: 0.25rem;
+    font-size: 12px;
   }
 }
 </style>
