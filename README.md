@@ -20,5 +20,10 @@ npm run build
 npm run lint
 ```
 
+### Live Demo
+```
+https://vue-poke.herokuapp.com/
+```
+
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
